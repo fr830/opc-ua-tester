@@ -23,21 +23,23 @@ namespace opc_ua_test {
 
             EasyUAClient client = new EasyUAClient();
 
-            UAAttributeData data;
-
             while (true) {
-
-                data = client.Read(server, node);
-
                 Console.Clear();
-                Console.WriteLine();
-                Console.WriteLine($"Read timestamp: {data.SourceTimestampLocal}");
-                Console.WriteLine($"Read status: {data.StatusCode}");
-                Console.WriteLine($"Read value type is: {data.ValueType}");
-                Console.WriteLine($"Read value is: {data.Value}");
+
+                ReadNode(client, server, node);
 
                 Thread.Sleep(500);
             }
+        }
+
+        static void ReadNode(EasyUAClient client, UAEndpointDescriptor server, UANodeDescriptor node) {
+            UAAttributeData data = client.Read(server, node);
+
+            Console.WriteLine($"Node: {node.NodeId}");
+            Console.WriteLine($"Timestamp {data.SourceTimestampLocal}");
+            Console.WriteLine($"Status: {data.StatusCode}");
+            Console.WriteLine($"ValueType: {data.ValueType}");
+            Console.WriteLine($"Value: {data.Value}");
         }
     }
 }
