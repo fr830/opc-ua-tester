@@ -1,5 +1,6 @@
 ﻿using OpcLabs.EasyOpc.UA;
 using System;
+using System.Collections.Generic;
 using System.Threading;
 
 namespace opc_ua_test {
@@ -11,17 +12,22 @@ namespace opc_ua_test {
                 return;
             }
 
-            UAEndpointDescriptor server = $"opc.tcp://{args[0]}";
+            List<UANodeDescriptor> nodes = new List<UANodeDescriptor>();
+            for (int i = 1; i < args.Length; i++) {
+                nodes.Add(args[i]);
+            }
 
-            // How to keep quotes in user input string? :thinking:
-            UANodeDescriptor node = args[1];
+            UAEndpointDescriptor server = $"opc.tcp://{args[0]}";
 
             EasyUAClient client = new EasyUAClient();
 
             while (true) {
                 Console.Clear();
 
-                ReadNode(client, server, node);
+                foreach (UANodeDescriptor node in nodes) {
+                    ReadNode(client, server, node);
+                    Console.WriteLine();
+                }
 
                 Thread.Sleep(500);
             }
