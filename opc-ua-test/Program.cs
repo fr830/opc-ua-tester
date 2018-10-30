@@ -1,11 +1,6 @@
 ﻿using OpcLabs.EasyOpc.UA;
-using OpcLabs.EasyOpc.UA.Engine;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading;
-using System.Threading.Tasks;
 
 namespace opc_ua_test {
     class Program {
